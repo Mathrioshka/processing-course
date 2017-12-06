@@ -38,8 +38,6 @@ void draw() {
   };
 }
 
-void exit() {
+void keyPressed() {
   endRecord();
-  
-  super.exit();
 }
