@@ -12,6 +12,8 @@ void setup()
 {
   size(640, 480);
   
+  frameRate(60);
+  
   minim = new Minim(this);
   groove = minim.loadFile("groove.mp3", 512);
   groove.loop();
@@ -19,13 +21,12 @@ void setup()
 
 void draw ()
 {
-  background(100);
+  //background(100);
   
   translate(mouseX, mouseY);
   rotate(radians(angle));
   
-  stroke(0, 0, 0, 200);
-  strokeWeight(0.5);
+  
   
   beginShape();
   
@@ -33,11 +34,16 @@ void draw ()
   {
     radius[i] += 2 + (groove.left.get(i) * audioAmp - radius[i]) * 0.1;
    
-    float x = radius[i] * cos(i);
-    float y = radius[i] * sin(i);
+    float x = radius[i] * cos(radians(i));
+    float y = radius[i] * sin(radians(i));
 
-    ellipse(x, y, radius[i] / 5, radius[i] / 5);
+    noStroke();
     vertex(x, y);
+    
+    stroke(0, 0, 0, 200);
+    strokeWeight(0.5);
+    fill(255, 200);
+    ellipse(x, y, radius[i] / 5, radius[i] / 5);
   }
   
   endShape();
