@@ -6,7 +6,7 @@ RFont font;
 
 void setup()
 {
-    size(400,400);
+    size(1280,400);
     
     //Инициализируем средства работы со шрифтами
     RG.init(this);
@@ -23,7 +23,7 @@ void draw()
     translate(width/2,height/2);
 
     //Преобразуем шрифт в группу объектов
-    RGroup grp = font.toGroup("VVVV");
+    RGroup grp = font.toGroup("Good Morning");
     
     //задаем длину сегмента
     float segmentLenght = map(mouseX, 0, width, 0, 100);
@@ -31,11 +31,11 @@ void draw()
     RCommand.setSegmentator(RCommand.UNIFORMLENGTH);
     
     //Преобразуем группу в точки
-    RPoint[] pnts = grp.getPoints();
+    RPoint[] points = grp.getPoints();
     
     //Отрисовываем объекты
-    for ( int i = 0; i < pnts.length; i++ )
+    for ( RPoint point: points )
     {
-        ellipse(pnts[i].x, pnts[i].y, 5, 5);
+        ellipse(point.x, point.y, 5, 5);
     }
 }

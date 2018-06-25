@@ -3,30 +3,28 @@
 import geomerative.*;
 
 RFont font;
-RPoint[] pnts;
+RPoint[] points;
 
 //Массив точек сетки
 ArrayList<PVector> vectors = new ArrayList<PVector>();
 
-//Шаг сетки
-int step = 70;
-
 void setup()
 {
-    size(800, 600);
-    smooth();
+    size(1280, 600);
     
     RG.init(this);
     font = new RFont( "lucon.ttf", 250, RFont.CENTER);
     
     //Преобразуем шрифт в группу объектов
-    RGroup grp = font.toGroup("4V");
+    RGroup grp = font.toGroup("People");
     RCommand.setSegmentLength(20);
     RCommand.setSegmentator(RCommand.UNIFORMLENGTH);
     
     //Преобразуем группу в точки
-    pnts = grp.getPoints();
+    points = grp.getPoints();
     
+    //Шаг сетки
+    int step = 70;
     
     //Размечаем сетку
     for(int i = 0; i < width; i+=step)
@@ -50,14 +48,13 @@ void draw()
     strokeWeight(0.0001);
     
     //Соединяем линии с точками шрифта
-    for (int i = 0; i < pnts.length; i++) {
-      for(int j = 0; j < vectors.size(); j++)
-      {
-        //Получаем координаты сетки
-        PVector vec = vectors.get(j);
-        
+    for (RPoint point : points) 
+    {
+      for(PVector vector : vectors)
+      { 
         //Отрисовываем линию
-        line(vec.x, vec.y, pnts[i].x + width / 2, pnts[i].y + height /2 + 80);
+        line(vector.x, vector.y, point.x + width / 2 + noise(point.x, point.y) * 8, 
+             point.y + height /2 + noise(point.x, point.y));
       }
     }
 }
